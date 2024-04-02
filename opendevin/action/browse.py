@@ -12,7 +12,7 @@ class BrowseURLAction(ExecutableAction):
 
     def run(self, *args, **kwargs) -> BrowserOutputObservation:
         try:
-            response = requests.get(self.url)
+            response = requests.get(self.url, timeout=60)
             return BrowserOutputObservation(
                 content=response.text,
                 status_code=response.status_code,
