@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from opendevin.observation import BrowserOutputObservation
 
 from .base import ExecutableAction
+from security import safe_requests
 
 @dataclass
 class BrowseURLAction(ExecutableAction):
@@ -12,7 +13,7 @@ class BrowseURLAction(ExecutableAction):
 
     def run(self, *args, **kwargs) -> BrowserOutputObservation:
         try:
-            response = requests.get(self.url)
+            response = safe_requests.get(self.url)
             return BrowserOutputObservation(
                 content=response.text,
                 status_code=response.status_code,
